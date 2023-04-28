@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'includes/navbar.html' %}
+<div class="container text-center card col-sm-12 my-2 py-2">
+    <h2 class="">Send WhtsApp Campaign </h2>
+    {% include 'includes/alert.html' %}
+    <form class="d-flex align-items-center" method="POST" enctype="multipart/form-data"
+        action="{% url 'whtsappCampaign' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-3">
+                            <label for="mobileNumberInput" class="form-label">Mobile Number</label>
+                            <textarea class="form-control" name="numbers" id="mobileNumberInput" rows="5"
+                                required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="mb-3 row">
+                            <label for="messageInput" class="form-label">Message</label>
+                            <textarea class="form-control" name="message" id="messageInput" rows="5"
+                            maxlength="2000" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="mb-3">
+                            <label for="imageInput" class="form-label">Image Upload (Max 4 Images)</label>
+                            <input type="file" class="form-control" name="image1" accept="image/*" max-size="256000">
+                            <input type="file" class="form-control" name="image2" accept="image/*" max-size="256000">
+                            <input type="file" class="form-control" name="image3" accept="image/*" max-size="256000">
+                            <input type="file" class="form-control" name="image4" accept="image/*" max-size="256000">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="mb-3">
+                            <label for="videoInput" class="form-label">Video Upload (Max 1 Video)</label>
+                            <input type="file" class="form-control" name="video" accept="video/*">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="mb-3">
+                            <label for="pdfInput" class="form-label">PDF File Upload (Max 1 PDF)</label>
+                            <input type="file" class="form-control" name="pdf" accept="application/pdf">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#confirm-send-modal">Send Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="confirm-send-modal" tabindex="-1" aria-labelledby="confirm-send-modal-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirm-send-modal-label">Confirm Send</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to send this message to the selected contacts?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Send Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

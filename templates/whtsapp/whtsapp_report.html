@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'includes/navbar.html' %}
+
+
+<h1>Report</h1>
+
+
+<div class="container card table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Sent On</th>
+                <th scope="col">Numbers</th>
+                <th scope="col">Message</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        {% for report in reports %}
+        <tbody>
+            <tr>
+                <th scope="row">{{ report.id }}</th>
+                <td>{{ report.created_at }}</td>
+                <td>{{ report.numbers }}</td>
+                <td>{{ report.message }}</td>
+
+                <!-- {% if report.image1 %}
+                <td><img src="{{ report.image1.url }}" alt="" width="50" height="50"></td>
+                {% endif %}
+
+                {% if report.image2 %}
+                <td><img src="{{ report.image2.url }}" alt="" width="50" height="50"></td>
+                {% endif %}
+
+                {% if report.image3 %}
+                <td><img src="{{ report.image3.url }}" alt="" width="50" height="50"></td>
+                {% endif %}
+
+                {% if report.image4 %}
+                <td><img src="{{ report.image4.url }}" alt="" width="50" height="50"></td>
+                {% endif %} -->
+                
+                {% if report.status == 'Submitted' %}
+                <td><span class="badge rounded-pill text-bg-primary">{{ report.status }}</span></td>
+                {% elif report.status == 'Processing' %}
+                <td><span class="badge rounded-pill text-bg-warning">{{ report.status }}</span></td>
+                {% else %}
+                <td><span class="badge rounded-pill text-bg-success">{{ report.status }}</span></td>
+                {% endif %}
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}
