@@ -71,7 +71,8 @@ def create_whtsapp_campaign(request):
         form = WhtsappCampaignForm()
 
     context = {
-        'form': form
+        'form': form,
+        "site": "Campaign WAPP",
     }
     
     return render(request, 'whtsapp/create_whtsapp_campaign.html', context)
@@ -80,9 +81,15 @@ def create_whtsapp_campaign(request):
 
 def whtsapp_report(request):
     user_id =  request.user.id
-    reports = WhtsappCampaign.objects.filter(user=user_id).order_by('-created_at')
-    
+    if request.user.is_superuser:
+        reports = WhtsappCampaign.objects.all().order_by('-created_at')
+    elif request.user.is_reseller:
+        reports = WhtsappCampaign.objects.filter(reseller=request.user).order_by('-created_at')
+    else:
+        reports = WhtsappCampaign.objects.filter(user=user_id).order_by('-created_at')
+
     context = {
-        'reports': reports
+        'reports': reports,
+        "site": "Campaign Report",
         }
     return render(request, 'whtsapp/whtsapp_report.html', context)

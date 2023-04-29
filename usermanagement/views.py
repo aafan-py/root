@@ -52,7 +52,8 @@ def manage_users(request):
     # Construct the context dictionary and render the template
     context = {
         'reseller': reseller, 
-        'users': users
+        'users': users,
+        "site": "Manage Users",
         }
     return render(request, 'usermanagement/manage_users.html', context)
 
@@ -98,7 +99,8 @@ def transaction_history(request):
     context = {
         'user': user, 
         'credits_debits': credits_debits, 
-        'form': form
+        'form': form,
+        "site": "Transaction History",
         }
     return render(request, 'usermanagement/transaction_history.html', context)
 
@@ -211,6 +213,7 @@ def credit_debit(request):
         "users": users,
         "form": form,
         "reseller": reseller,
+        "site": "Manage Credits",
     }
     return render(request, "usermanagement/credit_debit.html", context)
 

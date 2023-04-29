@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block content %}
 
+{% block head %}
+    <title>{{site}}</title>
+{% endblock %}
+
+{% block content %}
 <div class="container col-3 text-center d-flex flex-column min-vh-100">
   <main class="form-register w-100 m-auto my-0">
     <form method="POST" action="{% url 'register' %}">

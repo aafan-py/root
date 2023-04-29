@@ -9,7 +9,6 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 
-from django.contrib import auth, messages
 from django.core.mail import EmailMessage
 
 from accounts.models import Account
@@ -18,7 +17,10 @@ from accounts.forms import RegistrationForm, AccountUpdateForm
 
 @login_required(login_url='login')
 def index(request):
-    return render(request, 'index.html')
+    context = {
+        "site" : "Dashboard - Marketing Solution",
+    }
+    return render(request, 'index.html', context)
 
 
 def register(request):
@@ -61,7 +63,7 @@ def register(request):
                 return render(request, 'accounts/login.html')
 
         context = {
-            'form': form
+            'form': form,
         }
         
         print(form.errors)
@@ -69,7 +71,11 @@ def register(request):
 
     else:
         form = RegistrationForm()
-    context = {'form': form}
+
+    context = {
+        'form': form,
+        "site": "Register - Best Marketing Agency",
+        }
     return render(request, 'accounts/register.html', context)
 
 
@@ -99,7 +105,10 @@ def signin(request):
             messages.error(request, 'Invalid login credentials')
             return render(request, 'accounts/login.html')
     else:
-        return render(request, 'accounts/login.html')
+        context = {
+            "site": "Login - Best Marketing Agency",
+            }
+        return render(request, 'accounts/login.html', context)
 
 
 @login_required(login_url='login')
@@ -116,8 +125,8 @@ def my_profile(request):
     except Account.DoesNotExist:
         userprofile = None
 
-    if userprofile is None:
-        userprofile = Account.objects.create(email=request.user.email)
+    # if userprofile is None:
+    #     userprofile = Account.objects.create(email=request.user.email)
 
     if request.method == 'POST':
         form = AccountUpdateForm(
@@ -128,7 +137,11 @@ def my_profile(request):
     else:
         form = AccountUpdateForm(instance=userprofile)
 
-    context = {'form': form, 'userprofile': userprofile}
+    context = {
+        'form': form, 
+        'userprofile': userprofile,
+        "site": "My Profile",
+        }
     return render(request, 'accounts/my_profile.html', context)
 
 
@@ -148,7 +161,8 @@ def update_profile(request):
         form = AccountUpdateForm(instance=user_profile)
 
     context = {
-        'form': form
+        'form': form,
+        "site": "Update Profile",
         }
 
     return render(request, 'accounts/update_profile.html', context)
@@ -200,7 +214,11 @@ def forgot_password(request):
         else:
             messages.error(request, 'Account does not exist')
             return redirect('forgotPassword')
-    return render(request, 'accounts/forgot_password.html')
+        
+    context = {
+        "site": "Forgot Password",
+        }
+    return render(request, 'accounts/forgot_password.html', context)
 
 
 def reset_password_validate(request, uidb64, token):
@@ -233,6 +251,10 @@ def reset_password(request):
         else:
             messages.error(request, 'Password do not match')
             return redirect('resetPassword')
+            
     else:
-        return render(request, "accounts/reset_password.html")
+        context = {
+            "site": "Login - Best Marketing Agency",
+        }
+        return render(request, "accounts/reset_password.html", context)
 

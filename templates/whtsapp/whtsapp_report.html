@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block head %}
+    <title>{{site}}</title>
+{% endblock %}
+
 {% block content %}
 {% include 'includes/navbar.html' %}
 
@@ -13,6 +18,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Sent On</th>
+                <th scope="col">SentBy</th>
                 <th scope="col">Numbers</th>
                 <th scope="col">Message</th>
                 <th scope="col">Status</th>
@@ -23,6 +29,7 @@
             <tr>
                 <th scope="row">{{ report.id }}</th>
                 <td>{{ report.created_at }}</td>
+                <td>{{ report.user.username }}</td>
                 <td>{{ report.numbers }}</td>
                 <td>{{ report.message }}</td>
 
