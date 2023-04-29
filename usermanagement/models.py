@@ -42,8 +42,11 @@ class Service(models.Model):
 
 class ServiceRate(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
-    service = models.OneToOneField(Service, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
     rate = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    class Meta:
+        unique_together = ('user', 'service')
 
     def __str__(self) -> str:
         return f"User = {self.user.username} | Service = {self.service} | rate = {self.rate}"

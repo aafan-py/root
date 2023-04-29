@@ -4,6 +4,8 @@ from accounts.models import Account
 class WhtsappCampaign(models.Model):
     STATUS_CHOICES = (
         ('Submitted', 'Submitted'),
+        ('Rejected', 'Rejected'),
+        ('Stopped', 'Stopped'),
         ('Processing', 'Processing'),
         ('Completed', 'Completed'),
     )

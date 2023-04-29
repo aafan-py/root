@@ -44,6 +44,10 @@
                 
                 {% if report.status == 'Submitted' %}
                 <td><span class="badge rounded-pill text-bg-primary">{{ report.status }}</span></td>
+                {% elif report.status == 'Rejected' %}
+                <td><span class="badge rounded-pill text-bg-danger">{{ report.status }}</span></td>
+                {% elif report.status == 'Stopped' %}
+                <td><span class="badge rounded-pill text-bg-info">{{ report.status }}</span></td>
                 {% elif report.status == 'Processing' %}
                 <td><span class="badge rounded-pill text-bg-warning">{{ report.status }}</span></td>
                 {% else %}
