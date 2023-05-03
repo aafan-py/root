@@ -118,7 +118,7 @@ def signout(request):
     return redirect('login')
 
 
-@login_required
+@login_required(login_url='login')
 def my_profile(request):
     try:
         userprofile = Account.objects.get(email=request.user.email)
@@ -145,7 +145,7 @@ def my_profile(request):
     return render(request, 'accounts/my_profile.html', context)
 
 
-@login_required
+@login_required(login_url='login')
 def update_profile(request):
     user_profile = request.user
     if request.method == 'POST':
@@ -168,7 +168,7 @@ def update_profile(request):
     return render(request, 'accounts/update_profile.html', context)
 
 
-@login_required
+@login_required(login_url='login')
 def change_password(request):
     if request.method == 'POST':
         password = request.POST.get('password')
@@ -229,6 +229,7 @@ def reset_password_validate(request, uidb64, token):
         user = None
 
     if user is not None and default_token_generator.check_token(user, token):
+        request.session['password_reset_authenticated'] = True
         request.session['uid'] = uid
         messages.success(request, "Please enter your new password")
         return redirect('resetPassword')
@@ -237,7 +238,12 @@ def reset_password_validate(request, uidb64, token):
         return redirect('login')
 
 
+@login_required(login_url='login')
 def reset_password(request):
+    if not request.session.get('password_reset_authenticated', False):
+        messages.error(request, 'You are not authorized to reset your password.')
+        return redirect('myProfile')
+
     if request.method == "POST":
         password = request.POST['password']
         confirm_password = request.POST['confirm_password']
@@ -254,7 +260,11 @@ def reset_password(request):
             
     else:
         context = {
-            "site": "Login - Best Marketing Agency",
+            "site": "Reset Password",
         }
         return render(request, "accounts/reset_password.html", context)
 
+
+@login_required(login_url='login')
+def login_history(request):
+    pass

@@ -8,7 +8,7 @@
 {% block content %}
 {% include 'includes/navbar.html' %}
 
-<div class="container text-center card col-sm-8 my-2 py-2">
+<div class="container table-responsive text-center card col-sm-8 my-2 py-2">
   <h2 class="d-flex align-items-center justify-content-between">Manage Users
     <form class="d-flex align-items-center" method="GET" action="">
       <div class="form-group">
@@ -66,10 +66,15 @@
         </td>
 
         <td>
-          <a target="_incognito" href="{% url 'loginAsUser' user.id %}" class="btn btn-outline-primary btn-sm"
+          <a target="_incognito" href="{% url 'loginAsUser' user.id %}" class="btn btn-outline-secondary btn-sm"
           data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Login As User">
-            <i class="bi bi-box-arrow-in-right"></i>
+            <i class="bi bi-person-check-fill"></i>
           </a>
+
+          <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="offcanvas" 
+          data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+            <i class="bi bi-pencil-square" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Assign Permissions"></i>
+          </button>
         </td>
       </tr>
     </tbody>
@@ -119,6 +124,25 @@
 <div class="container text-center py-2">
   <a class="btn btn-lg btn-primary" href="{% url 'register' %}">Add User</a>
   <a class="btn btn-lg btn-primary" href="{% url 'creditDebit' %}">Manage Credit</a>
+</div>
+
+<!-- User Plans & Credit Update Canvas -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="card text-center mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Update User</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 {% endblock %}

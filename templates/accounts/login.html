@@ -7,27 +7,32 @@
 
 {% block content %}
 <!-- Login Form Start -->
-<div class="container col-3 text-center">
-  <main class="form-signin w-100 m-auto my-4">
-    <form method="POST" action="{% url 'login' %}">
+<div class="container col-sm-3 text-center d-flex flex-column min-vh-100">
+  <main class="form-signin w-100 m-auto">
+    <form method="POST" action="{% url 'login' %}" class="">
       {% csrf_token %}
-      <img class="mb-4" src="{% static 'assets/img/logo.png' %}" alt="" width="180" height="60">
+      <!-- <img class="mb-4" src="{% static 'assets/img/logo.png' %}" alt="" width="180" height="60"> -->
       <h1 class="h3 mb-3 fw-normal">Login</h1>
 
       <div class="form-floating">
-        <input type="email" class="form-control" id="floatingInput" name='email' placeholder="name@example.com">
+        <input type="email" class="form-control" id="floatingInput" name='email' placeholder="name@example.com" required>
         <label for="floatingInput">Email address</label>
       </div>
       <div class="form-floating my-1">
-        <input type="password" class="form-control" id="floatingPassword" name='password' placeholder="Password">
+        <input type="password" class="form-control" id="floatingPassword" name='password' placeholder="Password" required>
         <label for="floatingPassword">Password</label>
       </div>
       {% include 'includes/alert.html' %}
       <button class="w-100 btn btn-lg btn-primary my-2" type="submit">Login</button>
 
-      <div class="contain d-flex flex-column">
-        <a href="{% url 'forgotPassword' %}" class="">Forgot password?</a>
-        <a href="{% url 'register' %}" class="">Register</a>
+      <div class="contain flex-column">
+        <a href="{% url 'forgotPassword' %}" class="col-sm-5 btn btn-sm btn-primary">
+          Password
+          <i class="bi bi-question-circle-fill"></i>
+        </a>
+        <a href="{% url 'register' %}" class="col-sm-5 btn btn-sm btn-primary my-2">Register
+          <i class="bi bi-plus-circle-fill"></i>
+        </a>
       </div>
       <p class="mt-5 mb-3 text-muted">Afon Group &copy; <script>document.write(new Date().getFullYear())</script></p>
     </form>

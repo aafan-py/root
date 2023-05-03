@@ -94,5 +94,13 @@
 </div>
 <!-- Change Password Modal End -->
 
+  <!-- Bootstrap Modal Script -->
+  <script>
+    const changePasswordModal = document.getElementById('changePasswordModal')
+    const myInput = document.getElementById('myInput')
+    myModal.addEventListener('shown.bs.modal', () => {
+        myInput.focus()
+    })
+  </script>
 
 {% endblock %}

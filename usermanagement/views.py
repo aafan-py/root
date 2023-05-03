@@ -13,8 +13,9 @@ from .forms import CreditDebitForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 
+my_login_url = 'login'
 
-@login_required(login_url="login")
+@login_required(login_url=my_login_url)
 def manage_users(request):
     # Retrieve the reseller object from the session data
     reseller = request.user
@@ -58,7 +59,7 @@ def manage_users(request):
     return render(request, 'usermanagement/manage_users.html', context)
 
 
-@login_required(login_url="signin")
+@login_required(login_url=my_login_url)
 def login_as_user(request, user_id):
     # Retrieve the target user object with the given ID
     user = Account.objects.get(id=user_id)
@@ -106,7 +107,7 @@ def transaction_history(request):
 
 
 
-@login_required(login_url="signin")
+@login_required(login_url=my_login_url)
 def credit_debit(request):
     reseller_id = request.user.id
     try:

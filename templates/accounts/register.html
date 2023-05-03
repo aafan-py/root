@@ -6,12 +6,12 @@
 {% endblock %}
 
 {% block content %}
-<div class="container col-3 text-center d-flex flex-column min-vh-100">
-  <main class="form-register w-100 m-auto my-0">
-    <form method="POST" action="{% url 'register' %}">
+<div class="container col-sm-3 text-center d-flex flex-column min-vh-100">
+  <main class="form-register w-100 m-auto">
+    <form method="POST" action="{% url 'register' %}" class="px-2">
       {% csrf_token %}
-      <img class="mb-4" src="{% static 'assets/img/logo.png' %}" alt="Logo" width="180" height="60">
-      <h1 class="h3 mb-3 fw-normal">Registration Form</h1>
+      <img class="mb-2" src="{% static 'assets/img/logo.png' %}" alt="Logo" width="180" height="60">
+      <h1 class="h3  fw-normal">Registration Form</h1>
         <div class="form-floating">
           {{ form.username }}
           <label for="floatingInput">Username</label>
@@ -28,20 +28,27 @@
           {{ form.confirm_password }}
           <label for="floatingPassword">Confirm Password</label>
         </div>
-        <br>
-        <div class="form-check">
+        {% if user.is_authenticated %}
+        <div class="form-check py-2">
           <input class="form-check-input" type="checkbox" name="is_reseller" id="is_reseller">
           <label class="form-check-label" for="is_reseller">
               Create reseller account
           </label>
         </div>
+        {% endif %}
+        
         {% include 'includes/alert.html' %}
-        <button class="w-100 btn btn-lg btn-primary my-4" type="submit">Register</button>
+        <button class="w-100 btn btn-lg btn-primary my-2" type="submit">Register</button>
 
-        <div class="contain d-flex flex-column">Already a user?
-          <a href="{% url 'login' %}" class="">Login</a>
+        {% if not user.is_authenticated %}
+        <div class="contain flex-column">
+          <a href="{% url 'login' %}" class="col-sm-5 btn btn-sm btn-primary">
+            Login
+            <i class="bi bi-box-arrow-in-right"></i>
+          </a>
         </div>
-        <p class="mt-5 mb-3 text-muted">Afon Group &copy; <script>document.write(new Date().getFullYear())</script></p>
+        {% endif %}
+        <p class="my-2 text-muted">Afon Group &copy; <script>document.write(new Date().getFullYear())</script></p>
       </form>
   </main>
 </div>
